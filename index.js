@@ -1,4 +1,6 @@
 
+var Stream = require('stream');
+
 /**
  * Pretty JSON response middleware.
  *
@@ -19,9 +21,11 @@ module.exports = function(opts){
     yield *next;
 
     var body = this.body;
-
-    // non-json
-    if (!body || 'object' != typeof body) return;
+    // non-json body
+    if (!body) return;
+    if (typeof body === 'string') return;
+    if (Buffer.isBuffer(body)) return;
+    if (body instanceof Stream) return;
 
     // query
     var hasParam = param && this.query[param];

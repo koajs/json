@@ -16,6 +16,7 @@ module.exports = function(opts){
   var opts = opts || {};
   var param = opts.param;
   var pretty = null == opts.pretty ? true : opts.pretty;
+  var spaces = opts.spaces || 2;
 
   return function *filter(next){
     yield *next;
@@ -29,7 +30,7 @@ module.exports = function(opts){
 
     // pretty
     if (pretty || hasParam) {
-      this.body = JSON.stringify(body, null, 2);
+      this.body = JSON.stringify(body, null, spaces);
     }
   }
 };

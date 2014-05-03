@@ -45,4 +45,21 @@ describe('pretty', function(){
     .get('/')
     .expect('{"foo":"bar"}', done);
   })
+
+  it('should allow custom spaces', function(done){
+    var app = koa();
+
+    app.use(json({
+      pretty: true,
+      spaces: 4
+    }));
+
+    app.use(function *(next){
+      this.body = { foo: 'bar' };
+    });
+
+    request(app.listen())
+    .get('/')
+    .expect('{\n    "foo": "bar"\n}', done);
+  })
 })

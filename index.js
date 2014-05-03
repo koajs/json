@@ -26,7 +26,7 @@ module.exports = function(opts){
     if (!isJSON(body)) return;
 
     // query
-    var hasParam = param && this.query[param];
+    var hasParam = param && this.query.hasOwnProperty(param);
 
     // pretty
     if (pretty || hasParam) {

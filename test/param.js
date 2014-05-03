@@ -29,6 +29,6 @@ describe('param', function(){
 
     request(app.listen())
     .get('/?pretty')
-    .expect('{"foo":"bar"}', done);
+    .expect('{\n  "foo": "bar"\n}', done);
   })
 })

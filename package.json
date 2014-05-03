@@ -1,6 +1,6 @@
 {
   "name": "koa-json",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "repository": "koajs/json",
   "description": "pretty (non-compressed) json response middleware",
   "keywords": [

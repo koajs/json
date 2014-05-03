@@ -13,6 +13,7 @@ $ npm install koa-json
 
  - `pretty` default to pretty response [true]
  - `param` optional query-string param for pretty responses [none]
+ - `spaces` JSON spaces [2]
 
 ## Example
 

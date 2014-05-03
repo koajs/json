@@ -7,12 +7,14 @@
     "koa",
     "json"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "koa-is-json":"1"
+  },
   "devDependencies": {
     "mocha": "*",
     "should": "*",
-    "koa": "koajs/koa",
-    "supertest": "~0.8.2"
+    "koa": "*",
+    "supertest": "0"
   },
   "license": "MIT",
   "scripts": {

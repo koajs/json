@@ -1,5 +1,5 @@
 
-var Stream = require('stream');
+var isJSON = require('koa-is-json');
 
 /**
  * Pretty JSON response middleware.
@@ -22,10 +22,7 @@ module.exports = function(opts){
 
     var body = this.body;
     // non-json body
-    if (!body) return;
-    if (typeof body === 'string') return;
-    if (Buffer.isBuffer(body)) return;
-    if (body instanceof Stream) return;
+    if (!isJSON(body)) return;
 
     // query
     var hasParam = param && this.query[param];

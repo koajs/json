@@ -20,6 +20,7 @@ $ npm install koa-json
   Always pretty by default:
 
 ```js
+var json = require('koa-json');
 var app = koa();
 
 app.use(json());

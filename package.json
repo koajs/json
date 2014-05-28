@@ -8,7 +8,9 @@
     "json"
   ],
   "dependencies": {
-    "koa-is-json":"1"
+    "koa-is-json":"1",
+    "is-object-stream": "1",
+    "streaming-json-stringify": "1"
   },
   "devDependencies": {
     "mocha": "*",

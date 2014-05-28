@@ -2,6 +2,7 @@
 # koa-json
 
   JSON pretty-printed response middleware.
+  Also converts node object streams to binary.
 
 ## Installation
 

@@ -29,7 +29,7 @@ describe('pretty', function(){
 
     request(app.listen())
     .get('/')
-    .expect('Content-Type', 'application/json', done);
+    .expect('Content-Type', /application\/json/, done);
   })
 
   it('should pass through when false', function(done){

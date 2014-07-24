@@ -1,5 +1,5 @@
 
-var PassThrough = require('stream').PassThrough;
+var Readable = require('stream').Readable;
 var request = require('supertest');
 var json = require('..');
 var koa = require('koa');
@@ -11,8 +11,9 @@ describe('streams', function(){
     app.use(json());
 
     app.use(function* (next) {
-      var stream = this.body = new PassThrough();
-      stream.end('lol');
+      var stream = this.body = new Readable();
+      stream.push('lol');
+      stream.push(null);
     });
 
     request(app.listen())
@@ -28,14 +29,14 @@ describe('streams', function(){
     }));
 
     app.use(function* (next) {
-      var stream = this.body = new PassThrough({ objectMode: true });
-      stream.write({
+      var stream = this.body = new Readable({ objectMode: true });
+      stream.push({
         message: '1'
       });
-      stream.write({
+      stream.push({
         message: '2'
       });
-      stream.end();
+      stream.push(null);
     })
 
     request(app.listen())
@@ -61,14 +62,14 @@ describe('streams', function(){
     app.use(json());
 
     app.use(function* (next) {
-      var stream = this.body = new PassThrough({ objectMode: true });
-      stream.write({
+      var stream = this.body = new Readable({ objectMode: true });
+      stream.push({
         message: '1'
       });
-      stream.write({
+      stream.push({
         message: '2'
       });
-      stream.end();
+      stream.push(null);
     })
 
     request(app.listen())

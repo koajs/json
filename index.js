@@ -1,7 +1,6 @@
 
 var isJSON = require('koa-is-json');
 var Stringify = require('streaming-json-stringify');
-var isObjectStream = require('is-object-stream').readable;
 
 /**
  * Pretty JSON response middleware.
@@ -25,7 +24,10 @@ module.exports = function(opts){
 
     var body = this.body;
     // unsupported body type
-    var stream = isObjectStream(body);
+    var stream = body
+      && typeof body.pipe === 'function'
+      && body._readableState
+      && body._readableState.objectMode;
     var json = isJSON(body);
     if (!json && !stream) return;
 

@@ -12,6 +12,7 @@
     "streaming-json-stringify": "1"
   },
   "devDependencies": {
+    "istanbul-harmony": "0",
     "mocha": "1",
     "should": "3",
     "koa": "0",
@@ -19,6 +20,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "test": "make test"
-  }
+    "test": "NODE_ENV=test mocha --harmony-generators --require should --reporter spec",
+    "test-cov": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should",
+    "test-travis": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should"
+  },
+  "files": ["index.js"]
 }

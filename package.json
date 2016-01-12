@@ -14,7 +14,7 @@
   "devDependencies": {
     "istanbul-harmony": "0",
     "mocha": "1",
-    "should": "3",
+    "should": "8.1.1",
     "koa": "0",
     "supertest": "0"
   },
@@ -24,5 +24,7 @@
     "test-cov": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should",
     "test-travis": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should"
   },
-  "files": ["index.js"]
+  "files": [
+    "index.js"
+  ]
 }

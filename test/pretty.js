@@ -1,16 +1,16 @@
 
 var request = require('supertest');
 var json = require('..');
-var koa = require('koa');
+var Koa = require('koa');
 
 describe('pretty', function(){
   it('should default to true', function(done){
-    var app = koa();
+    var app = new Koa();
 
     app.use(json());
 
-    app.use(function *(next){
-      this.body = { foo: 'bar' };
+    app.use((ctx) => {
+      ctx.body = { foo: 'bar' };
     });
 
     request(app.listen())
@@ -19,12 +19,12 @@ describe('pretty', function(){
   })
 
   it('should retain content-type', function(done){
-    var app = koa();
+    var app = new Koa();
 
     app.use(json());
 
-    app.use(function *(next){
-      this.body = { foo: 'bar' };
+    app.use((ctx) => {
+      ctx.body = { foo: 'bar' };
     });
 
     request(app.listen())
@@ -33,12 +33,12 @@ describe('pretty', function(){
   })
 
   it('should pass through when false', function(done){
-    var app = koa();
+    var app = new Koa();
 
     app.use(json({ pretty: false }));
 
-    app.use(function *(next){
-      this.body = { foo: 'bar' };
+    app.use((ctx) => {
+      ctx.body = { foo: 'bar' };
     });
 
     request(app.listen())
@@ -47,15 +47,15 @@ describe('pretty', function(){
   })
 
   it('should allow custom spaces', function(done){
-    var app = koa();
+    var app = new Koa();
 
     app.use(json({
       pretty: true,
       spaces: 4
     }));
 
-    app.use(function *(next){
-      this.body = { foo: 'bar' };
+    app.use((ctx) => {
+      ctx.body = { foo: 'bar' };
     });
 
     request(app.listen())

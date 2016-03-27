@@ -22,12 +22,13 @@ $ npm install koa-json
 
 ```js
 var json = require('koa-json');
-var app = koa();
+var Koa = require('koa');
+var app = new Koa();
 
 app.use(json());
 
-app.use(function *(next){
-  this.body = { foo: 'bar' };
+app.use((ctx) => {
+  ctx.body = { foo: 'bar' };
 });
 ```
 
@@ -45,12 +46,13 @@ $ GET /
   togglable via the query-string parameter:
 
 ```js
-var app = koa();
+var Koa = require('koa');
+var app = new Koa();
 
 app.use(json({ pretty: false, param: 'pretty' }));
 
-app.use(function *(next){
-  this.body = { foo: 'bar' };
+app.use((ctx) => {
+  ctx.body = { foo: 'bar' };
 });
 ```
 

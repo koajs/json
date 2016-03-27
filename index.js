@@ -19,34 +19,34 @@ module.exports = function(opts){
   var pretty = null == opts.pretty ? true : opts.pretty;
   var spaces = opts.spaces || 2;
 
-  return function *filter(next){
-    yield *next;
+  return function filter(ctx, next){
+    return next().then(() => {
+      var body = ctx.body;
+      // unsupported body type
+      var stream = body
+        && typeof body.pipe === 'function'
+        && body._readableState
+        && body._readableState.objectMode;
+      var json = isJSON(body);
+      if (!json && !stream) return;
 
-    var body = this.body;
-    // unsupported body type
-    var stream = body
-      && typeof body.pipe === 'function'
-      && body._readableState
-      && body._readableState.objectMode;
-    var json = isJSON(body);
-    if (!json && !stream) return;
+      // query
+      var hasParam = param && ctx.query.hasOwnProperty(param);
+      var prettify = pretty || hasParam;
 
-    // query
-    var hasParam = param && this.query.hasOwnProperty(param);
-    var prettify = pretty || hasParam;
+      // always stringify object streams
+      if (stream) {
+        ctx.response.type = 'json';
+        var stringify = Stringify();
+        if (prettify) stringify.space = spaces;
+        ctx.body = body.pipe(stringify);
+        return;
+      }
 
-    // always stringify object streams
-    if (stream) {
-      this.response.type = 'json';
-      var stringify = Stringify();
-      if (prettify) stringify.space = spaces;
-      this.body = body.pipe(stringify);
-      return;
-    }
-
-    // prettify JSON responses
-    if (json && prettify) {
-      return this.body = JSON.stringify(body, null, spaces);
-    }
+      // prettify JSON responses
+      if (json && prettify) {
+        return ctx.body = JSON.stringify(body, null, spaces);
+      }
+    });
   }
 };

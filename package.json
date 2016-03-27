@@ -14,15 +14,14 @@
   "devDependencies": {
     "istanbul": "0",
     "mocha": "2",
-    "should": "8",
     "koa": "1",
     "supertest": "1"
   },
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test mocha --require should --reporter spec",
-    "test-cov": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha -- --require should",
-    "test-travis": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should"
+    "test": "NODE_ENV=test mocha --reporter spec",
+    "test-cov": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha",
+    "test-travis": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha --report lcovonly"
   },
   "files": ["index.js"]
 }

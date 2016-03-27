@@ -1,6 +1,7 @@
 
 var Readable = require('stream').Readable;
 var request = require('supertest');
+var assert = require('assert');
 var json = require('..');
 var koa = require('koa');
 
@@ -45,13 +46,13 @@ describe('streams', function(){
     .expect(200, function (err, res) {
       if (err) return done(err);
 
-      res.text.should.include('{"message":"1"}');
-      res.text.should.include('{"message":"2"}');
-      res.body.should.eql([{
-        message: '1'
-      }, {
-        message: '2'
-      }]);
+      assert.ok(res.text.includes('{"message":"1"}'));
+      assert.ok(res.text.includes('{"message":"2"}'));
+      assert.deepEqual(res.body, [{
+          message: '1'
+        }, {
+          message: '2'
+        }]);
       done();
     })
   })
@@ -78,13 +79,13 @@ describe('streams', function(){
     .expect(200, function (err, res) {
       if (err) return done(err);
 
-      res.text.should.include('{\n  "message": "1"\n}');
-      res.text.should.include('{\n  "message": "2"\n}');
-      res.body.should.eql([{
-        message: '1'
-      }, {
-        message: '2'
-      }]);
+      assert.ok(res.text.includes('{\n  "message": "1"\n}'));
+      assert.ok(res.text.includes('{\n  "message": "2"\n}'));
+      assert.deepEqual(res.body, [{
+          message: '1'
+        }, {
+          message: '2'
+        }]);
       done();
     })
   })

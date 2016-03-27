@@ -1,16 +1,16 @@
 
 var request = require('supertest');
 var json = require('..');
-var koa = require('koa');
+var Koa = require('koa');
 
 describe('param', function(){
   it('should default to being disabled', function(done){
-    var app = koa();
+    var app = new Koa();
 
     app.use(json({ pretty: false }));
 
-    app.use(function *(next){
-      this.body = { foo: 'bar' };
+    app.use((ctx) => {
+      ctx.body = { foo: 'bar' };
     });
 
     request(app.listen())
@@ -19,12 +19,12 @@ describe('param', function(){
   })
 
   it('should pretty-print when present', function(done){
-    var app = koa();
+    var app = new Koa();
 
     app.use(json({ pretty: false, param: 'pretty' }));
 
-    app.use(function *(next){
-      this.body = { foo: 'bar' };
+    app.use((ctx) => {
+      ctx.body = { foo: 'bar' };
     });
 
     request(app.listen())

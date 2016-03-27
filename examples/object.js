@@ -3,15 +3,15 @@
  * Module dependencies.
  */
 
-var koa = require('koa');
+var Koa = require('koa');
 var filter = require('..');
 
-var app = koa();
+var app = new Koa();
 
 app.use(filter());
 
-app.use(function *(){
-  this.body = {
+app.use((ctx) => {
+  ctx.body = {
     name: 'tobi',
     email: 'tobi@segment.io',
     packages: 5,

@@ -32,7 +32,7 @@ module.exports = function(opts){
     if (!json && !stream) return;
 
     // query
-    var hasParam = param && this.query.hasOwnProperty(param);
+    var hasParam = param && (this.query[param] != null);
     var prettify = pretty || hasParam;
 
     // always stringify object streams

@@ -2,6 +2,8 @@
 var isJSON = require('koa-is-json');
 var Stringify = require('streaming-json-stringify');
 
+var hasOwnProperty = Object.hasOwnProperty
+
 /**
  * Pretty JSON response middleware.
  *
@@ -32,7 +34,7 @@ module.exports = function(opts){
     if (!json && !stream) return;
 
     // query
-    var hasParam = param && this.query.hasOwnProperty(param);
+    var hasParam = param && hasOwnProperty.call(this.query, param);
     var prettify = pretty || hasParam;
 
     // always stringify object streams

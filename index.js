@@ -1,6 +1,7 @@
 
 var isJSON = require('koa-is-json');
 var Stringify = require('streaming-json-stringify');
+var os = require('os')
 
 var hasOwnProperty = Object.hasOwnProperty
 
@@ -48,7 +49,7 @@ module.exports = function(opts){
 
     // prettify JSON responses
     if (json && prettify) {
-      return this.body = JSON.stringify(body, null, spaces);
+      return this.body = JSON.stringify(body, null, spaces) + os.EOL;
     }
   }
 };

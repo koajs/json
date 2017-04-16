@@ -1,13 +1,13 @@
 
-var Readable = require('stream').Readable;
-var request = require('supertest');
-var assert = require('assert');
-var json = require('..');
-var Koa = require('koa');
+const Readable = require('stream').Readable;
+const request = require('supertest');
+const assert = require('assert');
+const json = require('..');
+const Koa = require('koa');
 
-describe('streams', function(){
-  it('should not do anything binary streams', function (done) {
-    var app = new Koa();
+describe('streams', () => {
+  it('should not do anything binary streams', (done) => {
+    const app = new Koa();
 
     app.use(json());
 
@@ -22,8 +22,8 @@ describe('streams', function(){
     .expect('lol', done);
   })
 
-  it('should always stringify object streams', function (done) {
-    var app = new Koa();
+  it('should always stringify object streams', (done) => {
+    const app = new Koa();
 
     app.use(json({
       pretty: false
@@ -43,22 +43,22 @@ describe('streams', function(){
     request(app.listen())
     .get('/')
     .expect('Content-Type', /application\/json/)
-    .expect(200, function (err, res) {
+    .expect(200, (err, res) => {
       if (err) return done(err);
 
       assert.ok(res.text.includes('{"message":"1"}'));
       assert.ok(res.text.includes('{"message":"2"}'));
       assert.deepEqual(res.body, [{
-          message: '1'
-        }, {
-          message: '2'
-        }]);
+        message: '1'
+      }, {
+        message: '2'
+      }]);
       done();
     })
   })
 
-  it('should prettify object streams', function (done) {
-    var app = new Koa();
+  it('should prettify object streams', (done) => {
+    const app = new Koa();
 
     app.use(json());
 
@@ -76,16 +76,16 @@ describe('streams', function(){
     request(app.listen())
     .get('/')
     .expect('Content-Type', /application\/json/)
-    .expect(200, function (err, res) {
+    .expect(200, (err, res) => {
       if (err) return done(err);
 
       assert.ok(res.text.includes('{\n  "message": "1"\n}'));
       assert.ok(res.text.includes('{\n  "message": "2"\n}'));
       assert.deepEqual(res.body, [{
-          message: '1'
-        }, {
-          message: '2'
-        }]);
+        message: '1'
+      }, {
+        message: '2'
+      }]);
       done();
     })
   })

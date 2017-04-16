@@ -21,15 +21,15 @@ $ npm install koa-json
   Always pretty by default:
 
 ```js
-var json = require('koa-json');
-var Koa = require('koa');
-var app = new Koa();
+const json = require('koa-json')
+const Koa = require('koa')
+const app = new Koa()
 
-app.use(json());
+app.use(json())
 
 app.use((ctx) => {
-  ctx.body = { foo: 'bar' };
-});
+  ctx.body = { foo: 'bar' }
+})
 ```
 
   yields:
@@ -46,14 +46,14 @@ $ GET /
   togglable via the query-string parameter:
 
 ```js
-var Koa = require('koa');
-var app = new Koa();
+const Koa = require('koa')
+const app = new Koa()
 
-app.use(json({ pretty: false, param: 'pretty' }));
+app.use(json({ pretty: false, param: 'pretty' }))
 
 app.use((ctx) => {
-  ctx.body = { foo: 'bar' };
-});
+  ctx.body = { foo: 'bar' }
+})
 ```
 
  yields:

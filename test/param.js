@@ -1,11 +1,11 @@
 
-var request = require('supertest');
-var json = require('..');
-var Koa = require('koa');
+const request = require('supertest');
+const json = require('..');
+const Koa = require('koa');
 
-describe('param', function(){
-  it('should default to being disabled', function(done){
-    var app = new Koa();
+describe('param', () => {
+  it('should default to being disabled', (done) => {
+    const app = new Koa();
 
     app.use(json({ pretty: false }));
 
@@ -18,8 +18,8 @@ describe('param', function(){
     .expect('{"foo":"bar"}', done);
   })
 
-  it('should pretty-print when present', function(done){
-    var app = new Koa();
+  it('should pretty-print when present', (done) => {
+    const app = new Koa();
 
     app.use(json({ pretty: false, param: 'pretty' }));
 

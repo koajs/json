@@ -1,11 +1,11 @@
 
-var request = require('supertest');
-var json = require('..');
-var Koa = require('koa');
+const request = require('supertest');
+const json = require('..');
+const Koa = require('koa');
 
-describe('pretty', function(){
-  it('should default to true', function(done){
-    var app = new Koa();
+describe('pretty', () => {
+  it('should default to true', (done) => {
+    const app = new Koa();
 
     app.use(json());
 
@@ -18,8 +18,8 @@ describe('pretty', function(){
     .expect('{\n  "foo": "bar"\n}', done);
   })
 
-  it('should retain content-type', function(done){
-    var app = new Koa();
+  it('should retain content-type', (done) => {
+    const app = new Koa();
 
     app.use(json());
 
@@ -32,8 +32,8 @@ describe('pretty', function(){
     .expect('Content-Type', /application\/json/, done);
   })
 
-  it('should pass through when false', function(done){
-    var app = new Koa();
+  it('should pass through when false', (done) => {
+    const app = new Koa();
 
     app.use(json({ pretty: false }));
 
@@ -46,8 +46,8 @@ describe('pretty', function(){
     .expect('{"foo":"bar"}', done);
   })
 
-  it('should allow custom spaces', function(done){
-    var app = new Koa();
+  it('should allow custom spaces', (done) => {
+    const app = new Koa();
 
     app.use(json({
       pretty: true,

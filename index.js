@@ -1,8 +1,8 @@
 
-var isJSON = require('koa-is-json');
-var Stringify = require('streaming-json-stringify');
+const Stringify = require('streaming-json-stringify');
+const isJSON = require('koa-is-json');
 
-var hasOwnProperty = Object.hasOwnProperty
+const hasOwnProperty = Object.hasOwnProperty
 
 /**
  * Pretty JSON response middleware.
@@ -15,31 +15,30 @@ var hasOwnProperty = Object.hasOwnProperty
  * @api public
  */
 
-module.exports = function(opts){
-  var opts = opts || {};
-  var param = opts.param;
-  var pretty = null == opts.pretty ? true : opts.pretty;
-  var spaces = opts.spaces || 2;
+module.exports = function(opts = {}){
+  const param = opts.param;
+  const pretty = null == opts.pretty ? true : opts.pretty;
+  const spaces = opts.spaces || 2;
 
   return function filter(ctx, next){
     return next().then(() => {
-      var body = ctx.body;
+      const body = ctx.body;
       // unsupported body type
-      var stream = body
+      const stream = body
         && typeof body.pipe === 'function'
         && body._readableState
         && body._readableState.objectMode;
-      var json = isJSON(body);
+      const json = isJSON(body);
       if (!json && !stream) return;
 
       // query
-      var hasParam = param && hasOwnProperty.call(ctx.query, param);
-      var prettify = pretty || hasParam;
+      const hasParam = param && hasOwnProperty.call(ctx.query, param);
+      const prettify = pretty || hasParam;
 
       // always stringify object streams
       if (stream) {
         ctx.response.type = 'json';
-        var stringify = Stringify();
+        const stringify = Stringify();
         if (prettify) stringify.space = spaces;
         ctx.body = body.pipe(stringify);
         return;

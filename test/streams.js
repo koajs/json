@@ -12,14 +12,19 @@ describe('streams', () => {
     app.use(json())
 
     app.use((ctx) => {
-      var stream = ctx.body = new Readable()
+      const stream = ctx.body = new Readable()
       stream.push('lol')
       stream.push(null)
     })
 
     request(app.listen())
     .get('/')
-    .expect('lol', done)
+    .expect(200, (err, res) => {
+      if (err) return done(err)
+
+      assert.equal(res.body.toString(), 'lol')
+      done()
+    })
   })
 
   it('should always stringify object streams', (done) => {
@@ -30,7 +35,7 @@ describe('streams', () => {
     }))
 
     app.use((ctx) => {
-      var stream = ctx.body = new Readable({ objectMode: true })
+      const stream = ctx.body = new Readable({ objectMode: true })
       stream.push({
         message: '1'
       })
@@ -63,7 +68,7 @@ describe('streams', () => {
     app.use(json())
 
     app.use((ctx) => {
-      var stream = ctx.body = new Readable({ objectMode: true })
+      const stream = ctx.body = new Readable({ objectMode: true })
       stream.push({
         message: '1'
       })

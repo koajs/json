@@ -12,10 +12,10 @@
     "streaming-json-stringify": "3"
   },
   "devDependencies": {
-    "istanbul": "0",
-    "mocha": "2",
-    "koa": "2",
-    "supertest": "1"
+    "istanbul": "^0.4.5",
+    "koa": "^2.2.0",
+    "mocha": "^3.2.0",
+    "supertest": "^3.0.0"
   },
   "license": "MIT",
   "scripts": {
@@ -23,5 +23,7 @@
     "test-cov": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha",
     "test-travis": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha --report lcovonly"
   },
-  "files": ["index.js"]
+  "files": [
+    "index.js"
+  ]
 }

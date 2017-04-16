@@ -18,6 +18,20 @@ describe('pretty', () => {
     .expect('{\n  "foo": "bar"\n}', done)
   })
 
+  it('should ok', (done) => {
+    const app = new Koa()
+
+    app.use(json())
+
+    app.use((ctx) => {
+      ctx.body = { foo: null, bar: undefined }
+    })
+
+    request(app.listen())
+    .get('/')
+    .expect('{\n  "foo": null\n}', done)
+  })
+
   it('should retain content-type', (done) => {
     const app = new Koa()
 

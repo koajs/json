@@ -3,10 +3,10 @@
  * Module dependencies.
  */
 
-var Koa = require('koa')
-var filter = require('..')
+const Koa = require('koa')
+const filter = require('..')
 
-var app = new Koa()
+const app = new Koa()
 
 app.use(filter())
 

@@ -14,8 +14,8 @@ describe('param', () => {
     })
 
     request(app.listen())
-    .get('/?pretty')
-    .expect('{"foo":"bar"}', done)
+      .get('/?pretty')
+      .expect('{"foo":"bar"}', done)
   })
 
   it('should pretty-print when present', (done) => {
@@ -28,7 +28,7 @@ describe('param', () => {
     })
 
     request(app.listen())
-    .get('/?pretty')
-    .expect('{\n  "foo": "bar"\n}', done)
+      .get('/?pretty')
+      .expect('{\n  "foo": "bar"\n}', done)
   })
 })

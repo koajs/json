@@ -14,8 +14,8 @@ describe('pretty', () => {
     })
 
     request(app.listen())
-    .get('/')
-    .expect('{\n  "foo": "bar"\n}', done)
+      .get('/')
+      .expect('{\n  "foo": "bar"\n}', done)
   })
 
   it('should ok', (done) => {
@@ -28,8 +28,8 @@ describe('pretty', () => {
     })
 
     request(app.listen())
-    .get('/')
-    .expect('{\n  "foo": null\n}', done)
+      .get('/')
+      .expect('{\n  "foo": null\n}', done)
   })
 
   it('should retain content-type', (done) => {
@@ -42,8 +42,8 @@ describe('pretty', () => {
     })
 
     request(app.listen())
-    .get('/')
-    .expect('Content-Type', /application\/json/, done)
+      .get('/')
+      .expect('Content-Type', /application\/json/, done)
   })
 
   it('should pass through when false', (done) => {
@@ -56,8 +56,8 @@ describe('pretty', () => {
     })
 
     request(app.listen())
-    .get('/')
-    .expect('{"foo":"bar"}', done)
+      .get('/')
+      .expect('{"foo":"bar"}', done)
   })
 
   it('should allow custom spaces', (done) => {
@@ -73,7 +73,7 @@ describe('pretty', () => {
     })
 
     request(app.listen())
-    .get('/')
-    .expect('{\n    "foo": "bar"\n}', done)
+      .get('/')
+      .expect('{\n    "foo": "bar"\n}', done)
   })
 })

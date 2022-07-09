@@ -1,7 +1,7 @@
-
 const request = require('supertest')
-const json = require('..')
 const Koa = require('koa')
+
+const json = require('..')
 
 describe('param', () => {
   it('should default to being disabled', (done) => {

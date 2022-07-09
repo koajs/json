@@ -1,36 +1,50 @@
 {
   "name": "koa-json",
   "version": "2.0.2",
-  "repository": "koajs/json",
+  "main": "index.js",
   "description": "pretty (non-compressed) json response middleware",
-  "keywords": [
-    "koa",
-    "json"
-  ],
-  "dependencies": {
-    "koa-is-json": "1",
-    "streaming-json-stringify": "3"
-  },
-  "devDependencies": {
-    "eslint": "^6.6.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-node": "^4.2.2",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "istanbul": "^0.4.5",
-    "koa": "^2.2.0",
-    "mocha": "^3.2.0",
-    "supertest": "^3.0.0"
-  },
-  "license": "MIT",
-  "scripts": {
-    "lint": "eslint --fix .",
-    "test": "NODE_ENV=test mocha --reporter spec",
-    "test-cov": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha",
-    "test-travis": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha --report lcovonly"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koajs/json.git"
   },
   "files": [
     "index.js"
-  ]
+  ],
+  "scripts": {
+    "lint": "eslint . --fix",
+    "pretest": "npm run lint",
+    "test": "cross-env NODE_ENV=test mocha --exit",
+    "test-cov": "cross-env NODE_ENV=test nyc npm run test",
+    "test-travis": "npm run test-cov"
+  },
+  "keywords": [
+    "koa",
+    "middleware",
+    "json"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "koa-is-json": "^1.0.0",
+    "streaming-json-stringify": "^3.1.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^8.19.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "koa": "^2.13.4",
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0",
+    "supertest": "^6.2.4"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "bugs": {
+    "url": "https://github.com/koajs/json/issues"
+  },
+  "homepage": "https://github.com/koajs/json"
 }

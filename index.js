@@ -1,6 +1,23 @@
+/*!
+ * koa-json
+ *
+ * Copyright (c) 2014-2022  jongleberry (me@jongleberry.com)      <https://jongleberry.com/>
+ * Copyright (c) 2022       imed jaberi (imed-jaberi@outlook.com) <https://www.3imed-jaberi.com>
+ * MIT Licensed
+ */
 
-const Stringify = require('streaming-json-stringify')
+'use strict'
+
+/**
+ * Module dependencies.
+ */
+
+const StreamStringify = require('streaming-json-stringify')
 const isJSON = require('koa-is-json')
+
+/**
+ * Temp assigned for override later
+ */
 
 const hasOwnProperty = Object.hasOwnProperty
 
@@ -8,6 +25,17 @@ const defaultOptions = {
   pretty: true,
   spaces: 2
 }
+
+/**
+ * Check if the passed value is stream or not!
+ *
+ * @param {unkown} maybeStream value to check
+ * @return {boolean}
+ */
+const isStream = (maybeStream) => maybeStream &&
+  typeof maybeStream.pipe === 'function' &&
+  maybeStream._readableState &&
+  maybeStream._readableState.objectMode
 
 /** @typedef {import("koa").Middleware} Middleware */
 
@@ -22,40 +50,33 @@ const defaultOptions = {
  * @return {Middleware}
  * @api public
  */
+module.exports = function (options) {
+  const { pretty, spaces, param } = Object.assign({}, defaultOptions, options)
 
-module.exports = function (options = defaultOptions) {
-  const pretty = options.pretty == null ? true : options.pretty
-  const spaces = options.spaces || 2
-  const param = options.param
+  return async (ctx, next) => {
+    await next()
+    const body = ctx.body
 
-  return function filter (ctx, next) {
-    return next().then(() => {
-      const body = ctx.body
-      // unsupported body type
-      const stream = body &&
-        typeof body.pipe === 'function' &&
-        body._readableState &&
-        body._readableState.objectMode
-      const json = isJSON(body)
-      if (!json && !stream) return
+    // unsupported body type
+    const stream = isStream(body)
+    const json = isJSON(body)
 
-      // query
-      const hasParam = param && hasOwnProperty.call(ctx.query, param)
-      const prettify = pretty || hasParam
+    if (!json && !stream) return
 
-      // always stringify object streams
-      if (stream) {
-        ctx.response.type = 'json'
-        const stringify = Stringify()
-        if (prettify) stringify.space = spaces
-        ctx.body = body.pipe(stringify)
-        return
-      }
+    // query
+    const hasParam = param && hasOwnProperty.call(ctx.query, param)
+    const prettify = pretty || hasParam
 
-      // prettify JSON responses
-      if (json && prettify) {
-        ctx.body = JSON.stringify(body, null, spaces)
-      }
-    })
+    // always stringify object streams
+    if (stream) {
+      ctx.response.type = 'json'
+      const stringify = StreamStringify()
+      if (prettify) stringify.space = spaces
+      ctx.body = body.pipe(stringify)
+      return
+    }
+
+    // prettify JSON responses
+    if (prettify) ctx.body = JSON.stringify(body, null, spaces)
   }
 }

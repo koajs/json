@@ -1,9 +1,9 @@
-
-const Readable = require('stream').Readable
+const { Readable } = require('stream')
 const request = require('supertest')
 const assert = require('assert')
-const json = require('..')
 const Koa = require('koa')
+
+const json = require('..')
 
 describe('streams', () => {
   it('should not do anything binary streams', (done) => {

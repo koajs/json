@@ -4,21 +4,29 @@ const isJSON = require('koa-is-json')
 
 const hasOwnProperty = Object.hasOwnProperty
 
+const defaultOptions = {
+  pretty: true,
+  spaces: 2
+}
+
+/** @typedef {import("koa").Middleware} Middleware */
+
 /**
  * Pretty JSON response middleware.
- *
- *  - `pretty` default to pretty response [true]
- *  - `param` optional query-string param for pretty responses [none]
- *
- * @param {Object} opts
- * @return {GeneratorFunction}
+ * @param {Object} options
+ * @param {boolean=} options.pretty
+ *   Whether to format the json with newlines and spaces. Default `true`
+ * @param {number=} options.spaces number of spaces to use as tab
+ * @param {string=} options.param
+ *   query-string param that will bypass pretty config if present
+ * @return {Middleware}
  * @api public
  */
 
-module.exports = function (opts = {}) {
-  const param = opts.param
-  const pretty = opts.pretty == null ? true : opts.pretty
-  const spaces = opts.spaces || 2
+module.exports = function (options = defaultOptions) {
+  const pretty = options.pretty == null ? true : options.pretty
+  const spaces = options.spaces || 2
+  const param = options.param
 
   return function filter (ctx, next) {
     return next().then(() => {

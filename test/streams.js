@@ -18,13 +18,13 @@ describe('streams', () => {
     })
 
     request(app.listen())
-    .get('/')
-    .expect(200, (err, res) => {
-      if (err) return done(err)
+      .get('/')
+      .expect(200, (err, res) => {
+        if (err) return done(err)
 
-      assert.equal(res.body.toString(), 'lol')
-      done()
-    })
+        assert.equal(res.body.toString(), 'lol')
+        done()
+      })
   })
 
   it('should always stringify object streams', (done) => {
@@ -46,20 +46,20 @@ describe('streams', () => {
     })
 
     request(app.listen())
-    .get('/')
-    .expect('Content-Type', /application\/json/)
-    .expect(200, (err, res) => {
-      if (err) return done(err)
+      .get('/')
+      .expect('Content-Type', /application\/json/)
+      .expect(200, (err, res) => {
+        if (err) return done(err)
 
-      assert.ok(res.text.includes('{"message":"1"}'))
-      assert.ok(res.text.includes('{"message":"2"}'))
-      assert.deepEqual(res.body, [{
-        message: '1'
-      }, {
-        message: '2'
-      }])
-      done()
-    })
+        assert.ok(res.text.includes('{"message":"1"}'))
+        assert.ok(res.text.includes('{"message":"2"}'))
+        assert.deepEqual(res.body, [{
+          message: '1'
+        }, {
+          message: '2'
+        }])
+        done()
+      })
   })
 
   it('should prettify object streams', (done) => {
@@ -79,19 +79,19 @@ describe('streams', () => {
     })
 
     request(app.listen())
-    .get('/')
-    .expect('Content-Type', /application\/json/)
-    .expect(200, (err, res) => {
-      if (err) return done(err)
+      .get('/')
+      .expect('Content-Type', /application\/json/)
+      .expect(200, (err, res) => {
+        if (err) return done(err)
 
-      assert.ok(res.text.includes('{\n  "message": "1"\n}'))
-      assert.ok(res.text.includes('{\n  "message": "2"\n}'))
-      assert.deepEqual(res.body, [{
-        message: '1'
-      }, {
-        message: '2'
-      }])
-      done()
-    })
+        assert.ok(res.text.includes('{\n  "message": "1"\n}'))
+        assert.ok(res.text.includes('{\n  "message": "2"\n}'))
+        assert.deepEqual(res.body, [{
+          message: '1'
+        }, {
+          message: '2'
+        }])
+        done()
+      })
   })
 })
